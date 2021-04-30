@@ -6,40 +6,44 @@ import { visibilityFilters, toggleTodo, deleteTodo } from '../store/actions';
 const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
   return (
     <ul className="list-group">
-      { todos && todos.map( (t, i) => (
-        <TodoItem 
-          key={ t.name } 
-          todo={ t } 
-          deleteTodo={ () => deleteTodo(i) } 
-          toggleTodo={ () => toggleTodo(i) }
-        />
-      )) }
+      {todos &&
+        todos.map((t) => (
+          <TodoItem
+            key={t.name}
+            todo={t}
+            deleteTodo={() => deleteTodo(t.id)}
+            toggleTodo={() => toggleTodo(t.id)}
+          />
+        ))}
     </ul>
-  )
-}
+  );
+};
 
-export default connect((state) => {
-  const filter = state.filter;
-  let todos;
-  switch(filter) {
-    case visibilityFilters.SHOW_DONE: {
-      todos = state.todos.filter( t => t.done )
-      break;
+export default connect(
+  (state) => {
+    const filter = state.filter;
+    let todos;
+    switch (filter) {
+      case visibilityFilters.SHOW_DONE: {
+        todos = state.todos.filter((t) => t.done);
+        break;
+      }
+      case visibilityFilters.SHOW_ACTIVE: {
+        todos = state.todos.filter((t) => !t.done);
+        break;
+      }
+      default: {
+        todos = state.todos;
+        break;
+      }
     }
-    case visibilityFilters.SHOW_ACTIVE: {
-      todos = state.todos.filter( t => !t.done )
-      break;
-    }
-    default: {
-      todos = state.todos
-      break;
-    }
-  }
 
-  return {
-    todos
+    return {
+      todos,
+    };
+  },
+  {
+    toggleTodo,
+    deleteTodo,
   }
-}, {
-  toggleTodo,
-  deleteTodo
-})(TodoList);
+)(TodoList);

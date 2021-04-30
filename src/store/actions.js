@@ -6,34 +6,33 @@ export const TOGGLE_TODO = 'toggle todo';
 export const visibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
   SHOW_DONE: 'SHOW_DONE',
-  SHOW_ACTIVE: 'SHOW_ACTIVE'
-}
+  SHOW_ACTIVE: 'SHOW_ACTIVE',
+};
 
 export const addTodo = (todo) => {
   return {
     type: ADD_TODO,
-    todo
-  }
-}
+    todo,
+  };
+};
 
-export const deleteTodo = (index) => {
+export const deleteTodo = (id) => {
   return {
     type: DELETE_TODO,
-    index
-  }
-}
+    id,
+  };
+};
 
 export const setFilter = (filter) => {
   return {
     type: SET_FILTER,
-    filter
-  }
-}
+    filter,
+  };
+};
 
-export const toggleTodo = (index) => {
+export const toggleTodo = (id) => {
   return {
     type: TOGGLE_TODO,
-    index
-  }
-}
-
+    id,
+  };
+};
